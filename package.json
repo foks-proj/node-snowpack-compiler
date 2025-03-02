@@ -4,7 +4,7 @@
   "description": "Compiler for the new Snowpack RPC system",
   "main": "build/main.js",
   "repository": "https://github.com/foks-proj/node-snowpack-compiler",
-  "author": "Max Krohn <themax@gmail.com>",
+  "author": "Max Krohn <max@ne43.com>",
   "license": "MIT",
   "private": true,
   "bin": {
