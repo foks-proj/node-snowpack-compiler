@@ -4,9 +4,9 @@ import (
 	"encoding/base64"
 	"testing"
 
+	"github.com/foks-proj/go-snowpack-rpc/rpc"
 	"github.com/keybase/go-codec/codec"
 	"github.com/stretchr/testify/assert"
-	"ne43.pub/go-snowpack-rpc/rpc"
 )
 
 type Codecable interface {

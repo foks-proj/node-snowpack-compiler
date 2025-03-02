@@ -67,7 +67,7 @@ export class GoEmitter extends Emitter {
             inventory.variant ||
             inventory.typedef
         ) {
-            this.output('"ne43.pub/go-snowpack-rpc/rpc"')
+            this.output('"github.com/foks-proj/go-snowpack-rpc/rpc"')
         }
         this.untab()
         this.output(')')
@@ -1468,7 +1468,7 @@ export class GoEmitter extends Emitter {
         this.output(`return rpc.ProtocolV2{`)
         this.tab()
         this.output(`Name: "${i.name}",`)
-        this.output(`Id: ${this.protocolId(i)},`)
+        this.output(`ID: ${this.protocolId(i)},`)
         this.output(`Methods: map[rpc.Position]rpc.ServeHandlerDescriptionV2{`)
         this.tab()
         for (const m of i.methods) {

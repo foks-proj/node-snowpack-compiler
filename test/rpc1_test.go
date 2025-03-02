@@ -8,8 +8,8 @@ import (
 	"testing"
 	"time"
 
+	"github.com/foks-proj/go-snowpack-rpc/rpc"
 	"github.com/stretchr/testify/require"
-	"ne43.pub/go-snowpack-rpc/rpc"
 )
 
 type ErrString string
