@@ -1,0 +1,86 @@
+@0xf712644ae5fafcc5;
+
+import "./common" as common;
+
+enum StatusCode {
+    OK @0;
+    EINT @1;
+    ESTRING @2;
+    EGENERIC @3;
+    EPROTONOTFOUND @4;
+    EMETHODNOTFOUND @5;
+}
+
+struct MethodV2 {
+    proto @0 : Uint;
+    method @1: Uint;
+    name @2: Text;
+}
+
+variant Status switch(sc : StatusCode) {
+    case OK: void;
+    case EINT @0: Int;
+    case ESTRING, EGENERIC @1: Text;
+    case EPROTONOTFOUND @2: Uint;
+    case EMETHODNOTFOUND @3 : MethodV2;
+}
+
+struct Smoosh {
+    i @0 : Int;
+    t @1 : Text;
+}
+
+struct Boomer @0xa839d6185e8209a7 {
+    ok @0 : Int;
+    nogo @1 : Text;
+}
+
+typedef BoomerBlob @0x8677ae1ea81b137a = Future(Boomer);
+
+struct Header {
+    vers @0 : Uint;
+}
+
+protocol ping errors Status argHeader Header resHeader Header @0xae1f1d4f {
+    pingUint @0 (
+        u @0 : Uint
+    ) -> Uint;
+
+    pingText @1 (
+        t @0 : Text
+    ) -> Text;
+
+    pingSmoosh @2 (
+        i @0 : Int,
+        t @1 : Text
+    ) -> Smoosh;
+
+    pingPuke @3 (
+        i @0 : Option(Int),
+        t @1 : Option(Text)
+    );
+
+    blobTorture @4 (
+        a @0 : List(Blob)
+    ) -> List(Blob);
+
+    pingSmooshes @5 (
+        a @0 : List(Smoosh)
+    ) -> List(Smoosh);
+
+    argRename @6 (
+        a @0 : Int,
+        b @1 : List(Int)
+    ) : MyArg -> Text;
+
+    getNow @7 () -> common.UnixTime;
+}
+
+protocol poog errors Status @0x853d5ea0 {
+    poogUint @0 ();
+}
+
+// Same protocol ID as ping to test protocol not found errors.
+protocol pingV2 errors Status @0xae1f1d4f {
+    pingPike @50 ();
+}

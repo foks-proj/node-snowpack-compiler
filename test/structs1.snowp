@@ -1,0 +1,56 @@
+@0xc670681f0260fb30;
+
+struct Blobs {
+    b @0 : Blob;
+    bf @1 : Blob(3);
+    ob @2 : Option(Blob);
+    obf @3 : Option(Blob(3));
+    be @4 : Blob;
+}
+
+struct Apple @0x9ed0d8bf5dd9cb36 {
+    id @0 : Text;
+    opt @1 : Option(Text);
+    lst @2 : List(Text);
+    lstOpt @3 : Option(List(Text));
+    i @4 : Int;
+    u @5 : Uint;
+    skip @8 : Bool;
+    lstEmpty @9 : List(Text);
+    textEmpty @10: Text;
+}
+
+enum FruitType {
+    APPLE @0;
+    ORANGE @1;
+    BANANA @2;
+}
+
+variant Fruit switch (ft : FruitType) {
+    case APPLE @0: Apple;
+    case BANANA @29347: Blobs;
+    default @1: Text;
+}
+
+struct Bundle {
+    fruits @0: List(Fruit);
+    source @1: Text;
+}
+
+struct FooV1 {
+    i0 @0 : Int;
+    i1 @1 : Int;
+    s2 @2 : Text;
+    s3 @3 : Text;
+}
+
+struct FooV2 {
+    i1 @1 : Int;
+    s3 @3 : Text;
+    i4 @4 : Int;
+    s5 @5 : Text;
+}
+
+struct BloblTorture {
+    bl @1 : List(Blob);
+}

@@ -1,0 +1,124 @@
+@0xc670681f0260fb30;
+
+/**
+Bars are a very special form of bizzle, much like a baizzle,
+but unlike a boozle or a snoozle.
+
+In short, you'll love bars.
+ */
+typedef Bar = Bool;
+
+typedef Joe = Blob;
+typedef Bilzzle = Blob(100);
+typedef Boomie = List(Blob(400));
+typedef Jams = List(Joe);
+typedef Evil = Uint;
+typedef Amy = Joe;
+
+struct Yoodle {
+    id @0: Text;
+    boomba @1: Boomba;
+    boombas @2 : List(Boomba);
+    maybe @4: Option(Boomba);
+    amy @5: Amy;
+    evil @6: Evil;
+    baz @7: List(Text);
+    bop @9: Option(Uint);
+}
+
+struct Boomba {
+    auggie @6 : List(Blob(43));
+    id @0 : Uint;
+    bambizzle @7 : Option(List(Blob));
+    o @1 : Option(Text);
+    oliver @4 : List(Bilzzle);
+    yoyo @8 : Text;
+    bobo @9 : Blob(400);
+    noob @13 : Option(Evil);
+}
+
+/**
+Zookies are a type of Azuki dog.
+*/
+enum Zookie {
+    OK @1;
+    BAD @2;
+    VeryBad @100;
+}
+
+enum BlipType {
+    NON_BINARY @0;
+    DUDE @1;
+    GIRL @2;
+}
+
+variant Blippi switch (bt : BlipType) @0xb1f62d29b2083855 {
+    case DUDE @0 : Joe;
+    case GIRL @1 : Amy;
+    default     :  void;
+}
+
+enum StatusCode {
+    OK @0;
+    EIO @100;
+    EAGAIN @101;
+    EPERM @200;
+    EINVAL @201;
+}
+
+variant Status switch(sc: StatusCode) {
+    case OK: void;
+    case EPERM, EAGAIN, EINVAL @0: Int;
+    case EIO @20: Boomba;
+    default  @1: Text;
+}
+
+/**
+Login is a protocol that helps us login. That and lots of other 
+truly amazing things!
+ */
+protocol login errors Status @0x9ea8b3b7 {
+
+    /**
+     Make an anonymous struct used for this RPC. Note that as with regular structs,
+     we can deprecate certain fields to save bandwidth, but servers need to be able
+     to handle such cases properly. This might be the case for a disused field
+     */
+    login @0 (
+        foo @0 : Boomba,
+        bar @1 : Uint,
+        bam @10 : Blippi
+      ) -> Text;
+
+    /**
+     No return type aside from the Status which we have for everything
+     */
+    logout @1 ();
+    
+    /**
+    Simple one-argument style. If there is one argument and that argument is position 0,
+    then the client stub will take a single argument and won't require allocation
+    of a argument structure. But on the wire it all looks the same.
+    */
+    bample @2 (i @0 : Int) -> Int;
+
+
+    /**
+    A wild bird call.
+    */
+    boobie @3 (i @2 : Boomba) -> ShowTime;
+}
+
+
+variant ShowTime switch (b : Bool) {
+    case true  @1: Int;
+    case false @0: Text;
+}
+
+variant Circus switch (i : int) {
+    case 10 @1: Uint;
+    case 200 @2: Bool;
+    case 2000 @69999: Text;
+    case -1 @30: Int;
+    default: void;
+}

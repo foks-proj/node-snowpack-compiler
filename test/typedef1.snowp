@@ -1,0 +1,7 @@
+
+@0xf62fa23c1398a1b8;
+
+typedef A = Blob(33);
+typedef B = A;
+typedef C = B;
+typedef Bozo @0xc4798fe0da5f6090 = Blob(32);

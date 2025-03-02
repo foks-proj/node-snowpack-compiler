@@ -1,0 +1,64 @@
+@0xa79614d00a6cfc59;
+
+struct foobar @0x9ad7a1559dd660d3 {
+    i @0 : Int;
+    t @2 : Text;
+    l @3: List(Int);
+    o @17 : Booper;
+    lf @4: List(foobar);
+    llf @5 : List(List(foobar));
+    lof @6 : Option(List(foobar));
+    bf @7: Blob(23);
+    b @8 : Blob;
+    u @14 : Uint;
+    z @15: bozo;
+    p @16 : Blipper;
+}
+
+enum bozo {
+    jeff @1;
+    max @2;
+    bobby @10;
+    boobie @1001;
+}
+
+variant boops switch (b : bozo) @0x9f49b68f2c6a08ef {
+    case jeff @0 : Uint;
+    case boobie @255: List(foobar);
+    default @1 : Text;
+}
+
+variant yogo switch (b : Bool) {
+    case true @1: Int;
+    case false @0: Text;
+}
+
+variant sogo switch (i : Int) {
+    case -1 @0 : boops;
+    case 10 @1 : yogo;
+    case 100 @2 : bozo;
+}
+
+typedef Blipper = Uint;
+typedef Booper = List(Blipper);
+
+typedef AuthorID = Text;
+typedef WorkID = Text;
+typedef SectionID = Text;
+
+struct Summary {
+    nWords @0 : Uint;
+    summary @1 : Text;
+    i @2 : Int;
+}
+
+struct Summaries {
+    section @0 : SectionID;
+    summaries @1: List(Summary);
+}
+
+struct Work {
+    work @0 : WorkID;
+    author @1 : AuthorID;
+    summaries @2 : Summaries;
+}

@@ -1,0 +1,5 @@
+structs1.go
+rpc1.go
+typedef1.go
+common.ts rpc1.ts structs1.ts typedef1.ts
+common.go
