@@ -3,10 +3,12 @@
   "version": "1.0.0",
   "description": "Compiler for the new Snowpack RPC system",
   "main": "build/main.js",
-  "repository": "https://github.com/foks-proj/node-snowpack-compiler",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/foks-proj/node-snowpack-compiler.git"
+  },
   "author": "Max Krohn <max@ne43.com>",
   "license": "MIT",
-  "private": true,
   "bin": {
     "snowpc": "build/cli.js"
   },
@@ -28,7 +30,7 @@
     "cli": "ts-node src/cli.ts",
     "test": "jest",
     "lint": "eslint src/ --ext .js,.jsx,.ts,.tsx",
-    "build": "./node_modules/.bin/tsc -p tsconfig.json",
+    "build": "tsc -p tsconfig.json",
     "clean": "rm -rf dist build",
     "ts-node": "ts-node",
     "build-parser": "mkdir -p build && ./node_modules/.bin/jison -o build/parser.js src/parser.y src/lexer.l",
