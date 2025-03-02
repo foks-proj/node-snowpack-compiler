@@ -4,3 +4,4 @@ build/*.js
 build/src/*.js
 build/test/*.js
 ts-examples/1.ts
+go-examples/2.go
