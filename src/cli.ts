@@ -1,3 +1,5 @@
+#!/usr/bin/env node
+
 import { Command } from 'commander'
 import { Options, run, langMap } from './main'
 import { lstat } from 'fs/promises'
