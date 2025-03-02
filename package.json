@@ -40,5 +40,8 @@
     "test-compile-ts": "npm run build-all && node build/cli.js -l ts -p example -i ts-examples/1.snowp -o ts-examples/1.ts && (cd ts-examples && ../node_modules/.bin/tsc --strict --target ES2020 --moduleResolution node 1.ts)",
     "go-test": "npm run build-all && (cd test && node ../build/cli.js -l go -p test -d . && go fmt . && go test)",
     "ts-test": "npm run build-all && (cd test && node ../build/cli.js -l ts -p test -d . && npm jest)"
+  },
+  "publishConfig": {
+    "access": "public"
   }
 }
