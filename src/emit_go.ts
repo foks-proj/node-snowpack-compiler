@@ -1526,7 +1526,8 @@ export class GoEmitter extends Emitter {
                 `(appError error, dispatchError error) {`
         )
         this.tab()
-        this.outputFrag('s, ok := raw.(*')
+        const convVar = "sTmp"
+        this.outputFrag(`${convVar}, ok := raw.(*`)
         p.pm.etype.emitInternal(this)
         this.output(')')
         this.output('if !ok {')
@@ -1536,12 +1537,12 @@ export class GoEmitter extends Emitter {
         )
         this.untab()
         this.output('}')
-        this.output('if s == nil {')
+        this.output(`if ${convVar} == nil {`)
         this.tab()
         this.output('return nil, nil')
         this.untab()
         this.output('}')
-        this.output(`return ${tv}.h(s.Import()), nil`)
+        this.output(`return ${tv}.h(${convVar}.Import()), nil`)
         this.untab()
         this.output('}')
 

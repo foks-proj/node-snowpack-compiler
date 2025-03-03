@@ -1,6 +1,6 @@
 {
   "name": "@foks-proj/snowpack-compiler",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "Compiler for the new Snowpack RPC system",
   "main": "build/main.js",
   "repository": {
