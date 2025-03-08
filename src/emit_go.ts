@@ -1434,13 +1434,20 @@ export class GoEmitter extends Emitter {
             } else if (m.res.isPrimitiveType()) {
                 this.output('Data : tmp,')
             } else if (m.res.isList()) {
-                this.output('Data : *lst,')
+                // noop
             } else {
                 this.output('Data : tmp.Export(),')
             }
             this.output('Header : i.MakeResHeader(),')
             this.untab()
             this.output('}')
+            if (m.res.isList()) {
+                this.output('if lst != nil {')
+                this.tab()
+                this.output('ret.Data = *lst')
+                this.untab()
+                this.output('}')
+            }
             this.output('return &ret, nil')
         } else {
             if (m.res.isVoid()) {
@@ -1526,7 +1533,7 @@ export class GoEmitter extends Emitter {
                 `(appError error, dispatchError error) {`
         )
         this.tab()
-        const convVar = "sTmp"
+        const convVar = 'sTmp'
         this.outputFrag(`${convVar}, ok := raw.(*`)
         p.pm.etype.emitInternal(this)
         this.output(')')
