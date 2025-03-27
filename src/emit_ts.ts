@@ -44,6 +44,8 @@ export class TypeScriptEmitter extends Emitter {
         this.emptyLine()
     }
 
+    emitPostamble(): void {}
+
     emitEnum(e: Enum): void {
         this.emitStatementPremable(e)
         this.emitEnumValues(e)

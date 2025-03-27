@@ -60,10 +60,12 @@ export abstract class Emitter {
     }
 
     abstract emitPreamble(r: Root): void
+    abstract emitPostamble(): void
 
     async emit(r: Root): Promise<string> {
         this.emitPreamble(r)
         r.emit(this)
+        this.emitPostamble()
         return this.collectOutput()
     }
 

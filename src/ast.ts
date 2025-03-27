@@ -6,12 +6,14 @@ export class Inventory {
     variant: boolean
     strct: boolean
     typedef: boolean
+    unique: boolean
 
     constructor() {
         this.rpc = false
         this.variant = false
         this.strct = false
         this.typedef = false
+        this.unique = false
     }
 }
 
@@ -386,6 +388,9 @@ export class Typedef extends Statement {
     }
     doInventory(i: Inventory) {
         i.typedef = true
+        if (this.id != null) {
+            this.id.doInventory(i)
+        }
     }
 }
 
@@ -393,6 +398,9 @@ export class UniqueId {
     id: string
     constructor(i: string) {
         this.id = i
+    }
+    doInventory(i: Inventory) {
+        i.unique = true
     }
 }
 
@@ -722,6 +730,7 @@ export class Protocol extends Statement {
     }
     doInventory(i: Inventory) {
         i.rpc = true
+        i.unique = true
     }
 }
 

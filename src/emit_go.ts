@@ -31,6 +31,7 @@ import {
 import { be64encode } from './b64'
 
 export class GoEmitter extends Emitter {
+    uniques: string[] = []
     constructor(o: Metadata) {
         super(o)
     }
@@ -63,6 +64,7 @@ export class GoEmitter extends Emitter {
 
         if (
             inventory.rpc ||
+            inventory.unique ||
             inventory.strct ||
             inventory.variant ||
             inventory.typedef
@@ -72,6 +74,19 @@ export class GoEmitter extends Emitter {
         this.untab()
         this.output(')')
         this.emptyLine()
+    }
+
+    emitPostamble(): void {
+        if (this.uniques.length > 0) {
+            this.output('')
+            this.output('func init() {')
+            this.tab()
+            for (const u of this.uniques) {
+                this.output(`rpc.AddUnique(${u})`)
+            }
+            this.untab()
+            this.output('}')
+        }
     }
 
     exportSymbol(s: string): string {
@@ -645,12 +660,14 @@ export class GoEmitter extends Emitter {
         const tv = this.thisVariableName(n)
         const es = this.exportSymbol(n)
         const tuid = 'TypeUniqueID'
-        this.output(`var ${es}${tuid} = rpc.${tuid}(${i.id})`)
+        const nm = es + tuid
+        this.output(`var ${nm} = rpc.${tuid}(${i.id})`)
         this.output(`func (${tv} *${es}) Get${tuid}() rpc.${tuid}{`)
         this.tab()
-        this.output(`return ${es}${tuid}`)
+        this.output(`return ${nm}`)
         this.untab()
         this.output('}')
+        this.uniques.push(nm)
     }
 
     emitStruct(s: Struct): void {
@@ -1107,11 +1124,11 @@ export class GoEmitter extends Emitter {
     }
 
     emitProtocolId(p: Protocol): void {
+        const nm = this.protocolId(p)
         this.output(
-            `var ${this.protocolId(
-                p
-            )} rpc.ProtocolUniqueID = rpc.ProtocolUniqueID(${p.id.id})`
+            `var ${nm} rpc.ProtocolUniqueID = rpc.ProtocolUniqueID(${p.id.id})`
         )
+        this.uniques.push(nm)
     }
 
     emitServerHookSignature(i: Protocol, m: Method): void {
