@@ -60,7 +60,11 @@ export class Outfile extends File {
     }
 }
 
-type PackageJson = { name: string; version: string; repository: string }
+type PackageJson = {
+    name: string
+    version: string
+    repository: { url: string }
+}
 
 export class Options {
     lang: Language
@@ -87,7 +91,7 @@ export class Options {
         this.inputDir = null
         this.outputDir = null
         this.ext = ext || 'snowp'
-        this.pjson = { name: '', version: '', repository: '' }
+        this.pjson = { name: '', version: '', repository: { url: '' } }
     }
 
     setInfile(s: string) {

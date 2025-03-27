@@ -40,7 +40,7 @@ export class GoEmitter extends Emitter {
         const md = this.md
         this.output(
             `// Auto-generated to Go types and interfaces using ` +
-                `${md.pjson.name} ${md.pjson.version} (${md.pjson.repository})`
+                `${md.pjson.name} ${md.pjson.version} (${md.pjson.repository.url})`
         )
         this.output(`//  Input file: ${md.infile.name}`)
         this.emptyLine()
