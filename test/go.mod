@@ -4,9 +4,8 @@ go 1.21
 
 toolchain go1.24.0
 
-
 require (
-	github.com/foks-proj/go-snowpack-rpc v0.0.0-20250302140405-87f6dedfd450
+	github.com/foks-proj/go-snowpack-rpc v0.0.1
 	github.com/keybase/go-codec v0.0.0-20180928230036-164397562123
 	github.com/stretchr/testify v1.10.0
 )

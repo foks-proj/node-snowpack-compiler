@@ -521,17 +521,21 @@ export class GoEmitter extends Emitter {
         this.outputFrag('ret := make(')
         l.emitInternal(this)
         this.output(', len(x))')
-        this.output('for k,v := range x {')
-        this.tab()
-        this.outputFrag('ret[k] = ')
+
+        // The golinter really wants us to use copy() if possible, but it only works for primitive
+        // types that don't need to be elementwise-exported.
         if (l.typ.isPrimitiveType()) {
-            this.outputFrag('v')
+            this.output('copy(ret, x)')
         } else {
+            this.output('for k,v := range x {')
+            this.tab()
+            this.outputFrag('ret[k] = ')
             l.typ.emitExport(this, 'v')
+            this.emptyLine()
+            this.untab()
+            this.output('}')
         }
-        this.emptyLine()
-        this.untab()
-        this.output('}')
+
         this.output('return &ret')
         this.untab()
         this.outputFrag('})')
@@ -793,7 +797,9 @@ export class GoEmitter extends Emitter {
     emitVariantInternalSwitchStruct(v: Variant): void {
         this.output(`type ${this.switchInternalStructType(v.name)} struct {`)
         this.tab()
-        this.output('_struct struct{} `codec:",omitempty"`')
+        this.output(
+            '_struct struct{} `codec:",omitempty"` //lint:ignore U1000 msgpack internal field'
+        )
         for (const c of v.cases) {
             this.emitVariantStructCase(v, c, true)
         }
@@ -961,7 +967,13 @@ export class GoEmitter extends Emitter {
             this.untab()
             this.output('}')
             if (caseLabel.length > 0) {
-                this.output(`if ${sv} != ${caseLabel} {`)
+                if (caseLabel === 'true') {
+                    this.output(`if !${sv} {`)
+                } else if (caseLabel === 'false') {
+                    this.output(`if ${sv} {`)
+                } else {
+                    this.output(`if ${sv} != ${caseLabel} {`)
+                }
                 this.tab()
                 this.output(
                     `panic(fmt.Sprintf("unexpected switch value (%v) when ${getterMethodName} is called", ${sv}))`
